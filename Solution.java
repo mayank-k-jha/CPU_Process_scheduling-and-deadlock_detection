@@ -141,7 +141,7 @@ public class Solution {
 		
 		{Collections.sort(ProcessScheduler, new comp());}
         
-		System.out.print("\nProcessing ");Timer(120,true,".");System.out.println("\n");
+		System.out.print("\nProcessing ");Timer(220,true,".");System.out.println("\n");
 		//Calling result function
 		result(ProcessScheduler,n,false);
 	}
@@ -243,7 +243,7 @@ public static void sjf(){
 		ProcessScheduler.add(s1.elementAt(i));  //assigning new process order to list
 	}}
 	
-	System.out.print("\nProcessing ");Timer(120,true,".");System.out.println("\n");
+	System.out.print("\nProcessing ");Timer(220,true,".");System.out.println("\n");
 	//calling result function 
 	result(ProcessScheduler,n,false);
 }
@@ -344,7 +344,7 @@ public static void roundRobin(){
     	ProcessScheduler.add(s2.elementAt(i));
     }
     
-    System.out.print("\nProcessing ");Timer(120,true,".");System.out.println("\n");
+    System.out.print("\nProcessing ");Timer(220,true,".");System.out.println("\n");
 	
 	//calling result function by passing the updated and arranged process scheduler
     result(ProcessScheduler,n,true);
@@ -509,7 +509,7 @@ public static void srtf(){
 			s2.elementAt(i).burstTime=Copy.get(s2.elementAt(i).process_name);
 		}
 		
-		System.out.print("\nProcessing ");Timer(120,true,".");System.out.println("\n");
+		System.out.print("\nProcessing ");Timer(220,true,".");System.out.println("\n");
 		
 		//Getting Result
 		result(new ArrayList<Process>(s2),n,true);
@@ -584,13 +584,13 @@ public static void deadLock(){
 	
 	/***************  Calculating Need Table              */
 	
-	System.out.print("Calculating Need ,Please wait");Timer(100,true,".");
+	System.out.print("Calculating Need ,Please wait");Timer(130,true,".");
 	System.out.println("\n");
 	
 	for(int i=0;i<n;i++){
 		System.out.print("P"+(i)+"  ");
 		for(int j=0;j<r;j++){
-			System.out.print(Need[i][j]+" ");Timer(15,false,"");
+			System.out.print(Need[i][j]+" ");Timer(20,false,"");
 		}System.out.println();
 	}
 	
@@ -602,23 +602,25 @@ public static void deadLock(){
 		int sum=0;
 		sum+=Available[i];
 		for(int j=0;j<n;j++){sum+=AllocationTable[j][i];}
+		Total[i]=sum;                             //Filling Total Resource Instance
 		System.out.print(sum+" ");
 	}
 	System.out.println("\n");
 	}
-	else{System.out.println("Available Resource Instance : ");
+	else{motion("Available Resource Instance : ",5);
 		for(int i=0;i<r;i++){
 			int sum=0;
 			for(int j=0;j<n;j++){
 				sum+=AllocationTable[j][i];
 			}
 			System.out.print((Total[i]-sum)+" ");
+			Available[i]=(Total[i]-sum);          //Filling Available Resource Instance
 		}System.out.println("\n");
 	}
-	
+
 	/***************  Running Deadlock Detection      */
 	
-	System.out.print("\n\nRunning Deadlock Detection ");Timer(50,true,".");
+	System.out.print("\n\nRunning Deadlock Detection ");Timer(150,true,".");
 	System.out.println("\n");
 	
 	Stack <Integer>s=new Stack<>();             //Operational Container
@@ -646,24 +648,25 @@ public static void deadLock(){
 			s.pop();}
 			}
 		
-		if(counter>(n*r)){System.out.print(" *** WARNING ***  Deadlock Detected,Exiting  ");
-		Timer(60,true,"X");System.out.println("\n");ke=-9;
+		if(counter>(n*r)){System.out.print("           ");motion("*** WARNING ***",3);System.out.print("   Deadlock Detected,Exiting  ");
+		Timer(120,true,"X");System.out.println("\n");ke=-9;
 		break;}
 	}
 	/*        Result      */
 	
-	if(ke==0){System.out.println("Safe State Found\n");
-	System.out.print("Safe Sequence is : ");
+	if(ke==0){
+	motion("Safe State Found\n",3);
+	motion("Safe Sequence is : ",2);
 	for(int i=0;i<s1.size();i++){
-		System.out.print(s1.elementAt(i)+" ");Timer(50,false,"");
+		System.out.print(s1.elementAt(i)+" ");Timer(60,false,"");
 	}
 	System.out.println("\n");
 	}
 
 	System.out.print("                   ");	
-	motion("Thankyou For using DeadLock Detection ",2);
+	motion("Thank You For using DeadLock Detection ",3);
 	System.out.print("                      ");
-	motion("***** Good Bye",2);
+	motion("***** Good Bye",5);
 }
 
 
@@ -680,9 +683,9 @@ public static void selectOption(){
 		else if(option==4){roundRobin();}
 		else if(option==5){
 			System.out.print("                   ");	
-			motion("Thank you For using Process Scheduling",2);
+			motion("Thank You For using Process Scheduling",3);
 			System.out.print("                      ");
-			motion("***** Good Bye",2);break;
+			motion("***** Good Bye",5);break;
 		}
 		else{System.out.print("\nPlease select a valid Option \n");}
 	}
@@ -734,7 +737,7 @@ public static void main(String ar[]){
 		else if(option==3){about();}
 		else if(option==4){
 		System.out.print("                   ");	
-		motion("Thankyou For using this Program",2);System.out.print("                      ");
+		motion("Thank You For using this Program",2);System.out.print("                      ");
 		motion("***** Good Bye",2);break;}
 		else{System.out.print("\nPlease Enter a Valid Option\n");}
 	}
