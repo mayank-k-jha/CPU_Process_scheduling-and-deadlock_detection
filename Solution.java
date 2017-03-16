@@ -33,10 +33,9 @@ public class Solution {
 	
 /********************************  Timer  ***********************************************/	
 	public static void Timer(long t,boolean c,String Pattern){
-		Thread ti=new Thread();
 		try{
 			for(int i=0;i<20;i++){
-				ti.sleep(t);
+				Thread.sleep(t);
 				if(c==true){System.out.print(Pattern);
 				}
 				}
@@ -415,7 +414,7 @@ public static void srtf(){
 	ProcessScheduler.clear();
 	float maxArr=-9,count=0f;
 	float minArr=999999f;float secMinArr=999999f;
-	int run=0,lock=0,lck=0;
+	int run=0,lock=0,lck=0,key=0;
 	
 	while(!s.isEmpty() && lock==0){
 		
@@ -465,9 +464,12 @@ public static void srtf(){
 			lock=-9;              //lock for breaking the while loop after all process arrival
 		}
 		
+		//Initializing count
+		if(key==0){count=minArr;key=-9;}
+		
 		//updating count to current passed processing time for further assigning 
 		count+=(secMinArr-minArr);
-		
+		System.out.println(count+" "+secMinArr+" "+minArr);
 		//checking for the particular selected process completion
 		
 		if(s.elementAt(loc).burstTime-(secMinArr-minArr)>0){
@@ -476,7 +478,7 @@ public static void srtf(){
 		}
 		else if(s.elementAt(loc).burstTime-(secMinArr-minArr)<=0){
 			if(s.elementAt(loc).burstTime-(secMinArr-minArr)==0){
-				s.elementAt(loc).compTime = count+(secMinArr-minArr);
+				s.elementAt(loc).compTime = count;
 				s.elementAt(loc).status=true;
 				s2.push(s.elementAt(loc));    //completed Processes got collected in s2
 				s.removeElementAt(loc);
@@ -489,7 +491,6 @@ public static void srtf(){
 			}
 			}
 		}
-	
 	
 	//now s2 contains all those processes which are completed
 	//sorting remaining process with their burst time and applying SJF 
