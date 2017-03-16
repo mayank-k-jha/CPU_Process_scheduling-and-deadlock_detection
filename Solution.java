@@ -31,7 +31,7 @@ class comp1 implements Comparator<Process>{
 public class Solution {
 	
 	
-/********************************  Timer  ***********************************************/	
+/********************************  Timer  *********************************************************/	
 	public static void Timer(long t,boolean c,String Pattern){
 		Thread ti=new Thread();
 		try{
@@ -142,7 +142,7 @@ public class Solution {
 /**************************************  SJF  *****************************************************/	
 
 public static void sjf(){
-	System.out.println("-----------------------SJF _----------------------------");
+	System.out.println("***************************  SJF  ***************************");
 	
 	ArrayList<Process> ProcessScheduler =new ArrayList<>();
 	boolean deci=false;
