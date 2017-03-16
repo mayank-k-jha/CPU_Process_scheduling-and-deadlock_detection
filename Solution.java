@@ -3,11 +3,8 @@
 import java.util.*;
 
 class Process{
-	String process_name;int burstTime;int arrivalTime=0;int compTime=0;
+	String process_name;float burstTime;float arrivalTime=0;float compTime=0;boolean status=false;
 }
-
-
-
 
 class comp implements Comparator<Process>{
 
@@ -20,10 +17,6 @@ class comp implements Comparator<Process>{
 	
 }
 
-
-
-
-
 class comp1 implements Comparator<Process>{
 
 	@Override
@@ -35,30 +28,40 @@ class comp1 implements Comparator<Process>{
 	
 }
 
-
-
-
 public class Solution {
 	
 	
-	
-	
-	
+/********************************  Timer  ***********************************************/	
+	public static void Timer(long t,boolean c,String Pattern){
+		Thread ti=new Thread();
+		try{
+			for(int i=0;i<20;i++){
+				ti.sleep(t);
+				if(c==true){System.out.print(Pattern);
+				}
+				}
+						
+		}
+		catch(InterruptedException e){
+			System.out.println("Error Detected");
+		}
+	}
 	
 	
 	
 /*******************************Result Display Function  *****************************************/	
 
 	public static void result(ArrayList<Process> ProcessScheduler,int n,boolean pre){
+		//pre decides preemptiveness of the Scheduling Algorithm
 		
-		int completion_time[]=new int [n];   //completion time array
-		int turn_around_time[]=new int[n];   //Turn around time array
-		int waiting_time[]=new int[n];       //Waiting time array
+		float completion_time[]=new float [n];   //completion time array
+		float turn_around_time[]=new float[n];   //Turn around time array
+		float waiting_time[]=new float[n];       //Waiting time array
 		
 		Iterator<Process> it =ProcessScheduler.iterator();
 		
 		//calculating the completion time of the FCFS
-		int sumer=0,counter=0;
+		float sumer=0;int counter=0;
 		
 		//creating total waiting time,total turn around time variables
 		int total_waiting=0,total_turn_around=0,c=-8;
@@ -89,25 +92,11 @@ public class Solution {
 		 System.out.println("Average Waiting Time     = "+(float)total_waiting/n);
 		 System.out.println("Average Turn Around Time = "+(float)total_turn_around/n);
 	}
-	
 
-	
-	
-	
-	
-	
 	
 /************************************ Global Scanner Function ************************************/	
 	
 	    static Scanner in=new Scanner(System.in); 
-	    
-	 
-	    
-	    
-	    
-	    
-	    
-	    
 	    
 	    
 /********************************First Come First Serve ******************************************/
@@ -132,12 +121,12 @@ public class Solution {
 			Process pro =new Process();
 			if(deci==true){
 			pro.process_name=in.next();
-			pro.burstTime=in.nextInt();
-			pro.arrivalTime=in.nextInt();
+			pro.burstTime=in.nextFloat();
+			pro.arrivalTime=in.nextFloat();
 			}
 			else{
 			pro.process_name=in.next();
-			pro.burstTime=in.nextInt();
+			pro.burstTime=in.nextFloat();
 			pro.arrivalTime=0;}
 			ProcessScheduler.add(pro);
 		}
@@ -147,11 +136,6 @@ public class Solution {
 		//Calling result function
 		result(ProcessScheduler,n,false);
 	}
-	
-	
-	
-	
-	
 	
 	
 	
@@ -177,9 +161,9 @@ public static void sjf(){
 	for(int i=0;i<n;i++){
 		Process pro =new Process();
 		pro.process_name=in.next();
-		pro.burstTime=in.nextInt();
+		pro.burstTime=in.nextFloat();
 		if(deci==true){
-		pro.arrivalTime=in.nextInt();
+		pro.arrivalTime=in.nextFloat();
 		}
 		else{
 		pro.arrivalTime=0;}
@@ -207,7 +191,7 @@ public static void sjf(){
 		//Setting Process sequence according to SJF in new stack s1
 		
 		{//finding first process
-			int minArrivalTime=99999,minBurstTime=99999,loc=-9;
+			float minArrivalTime=99999f,minBurstTime=99999f;int loc=-9;
 				for(int i=0;i<s.size();i++){
 					if(s.elementAt(i).arrivalTime<=minArrivalTime){   //finding shortest arrival time process
 						minArrivalTime=s.elementAt(i).arrivalTime;
@@ -220,7 +204,7 @@ public static void sjf(){
 			}
 		
 		//setting remaining process other than first
-		int minArrivalTime=s1.peek().arrivalTime+s.peek().burstTime,minn=99999,loc=-9;
+		float minArrivalTime=s1.peek().arrivalTime+s.peek().burstTime,minn=99999;int loc=-9;
 		
 		while(!s.isEmpty()){ 
 			for(int i=0;i<s.size();i++){
@@ -242,10 +226,6 @@ public static void sjf(){
 	//calling result function 
 	result(ProcessScheduler,n,false);
 }
-
-
-
-
 
 
 
@@ -273,9 +253,9 @@ public static void roundRobin(){
 	for(int i=0;i<n;i++){
 		Process pro =new Process();
 		pro.process_name=in.next();
-		pro.burstTime=in.nextInt();
+		pro.burstTime=in.nextFloat();
 		if(deci==true){
-		pro.arrivalTime=in.nextInt();
+		pro.arrivalTime=in.nextFloat();
 		}
 		else{
 		pro.arrivalTime=0;}
@@ -288,7 +268,7 @@ public static void roundRobin(){
 	//distribution of quantum among processes on the basis of their arrival time
 	Stack<Process> s=new Stack<>();
 	Stack<Process> s2=new Stack<>();
-	HashMap<String,Integer> map=new HashMap<>();
+	HashMap<String,Float> map=new HashMap<>();
 	{//filling s stack with Processes
 		Iterator<Process> it = ProcessScheduler.iterator();
 		while(it.hasNext()){
@@ -303,7 +283,7 @@ public static void roundRobin(){
 	ProcessScheduler.clear();
 	
 	//arranging Processes in Stack s
-	int TimeCounter=s.elementAt(0).arrivalTime;
+	float TimeCounter=s.elementAt(0).arrivalTime;
 	System.out.println("                   Gantt Chart \n");
 	while(!s.isEmpty()){
 		for(int i=0;i<s.size();i++){
@@ -340,13 +320,10 @@ public static void roundRobin(){
 }
 
 
-
-
-
-
-
-
 /*************************************  SRTF  *****************************************************/	
+/***********************************  Preemptive  *************************************************/
+
+
 
 public static void srtf(){
 	ArrayList<Process> ProcessScheduler =new ArrayList<>();
@@ -357,22 +334,22 @@ public static void srtf(){
 	
 	if(ch=='y'){deci=true;}
 	System.out.println("Enter number of Processes ");
-	int n=in.nextInt();
+	int n=in.nextInt();                         //total number of processes
 	
 	if(deci==true){
 		System.out.println("Enter each Process name,CPU Burst Time and Arrival time ");
 		}
 		else{System.out.println("Enter each Process name and CPU Burst Time  ");
 	}
-	Stack<Process> s=new Stack<>();
-	Stack<Process> s1=new Stack<>();
-	
+	Stack<Process> s=new Stack<>();             //Operational container
+	Stack<Process> s1=new Stack<>();            //SRTF algo performer
+	Stack<Process> s2=new Stack<>();            //SRTF scheduled container
 	for(int i=0;i<n;i++){
 		Process pro =new Process();
 		pro.process_name=in.next();
-		pro.burstTime=in.nextInt();
+		pro.burstTime=in.nextFloat();
 		if(deci==true){
-		pro.arrivalTime=in.nextInt();
+		pro.arrivalTime=in.nextFloat();
 		}
 		else{
 		pro.arrivalTime=0;}
@@ -385,44 +362,242 @@ public static void srtf(){
 		p=(Process)it.next();
 		s.add(p);
 	}
+	
+	//copying stack s into Copy to restore the original value ogf burst time after 
+	//operations on its contents
+	//for Process Scheduling
+	
+	HashMap<String,Float> Copy=new HashMap<>();
+	for(int i=0;i<s.size();i++){
+		Copy.put(s.elementAt(i).process_name,s.elementAt(i).burstTime);
+	}
+	
+	
 	ProcessScheduler.clear();
-	int minSuc=9999999;
-	{//finding first process
-		int minArrivalTime=99999,minBurstTime=99999,loc=-9;
-			for(int i=0;i<s.size();i++){
-				if(s.elementAt(i).arrivalTime<=minArrivalTime){   //finding shortest arrival time process
-					minArrivalTime=s.elementAt(i).arrivalTime;
-					if(s.elementAt(i).burstTime<=minBurstTime){  //if two process have same arrival time
-						minBurstTime=s.elementAt(i).burstTime;loc=i;//choosing the one with shortest burst time
-					}
-					
-				}
-				if(s.elementAt(i).arrivalTime!=minBurstTime && s.elementAt(i).arrivalTime<minSuc){
-					minSuc=s.elementAt(i).arrivalTime;System.out.println(minSuc);
-				}
+	float maxArr=-9,count=0f;
+	float minArr=999999f;float secMinArr=999999f;
+	int run=0,lock=0,lck=0;
+	while(!s.isEmpty() && lock==0){
+		
+		if(run==0){
+			run=-9;
+		//Filtering shortest Arrival Time
+		for(int i=0;i<s.size();i++){
+			if(s.elementAt(i).arrivalTime<minArr){
+				minArr=s.elementAt(i).arrivalTime;     //minimum arrival time
 			}
-			s1.push(s.elementAt(loc));s.removeElementAt(loc);
+			if(s.elementAt(i).arrivalTime>maxArr){
+				maxArr=s.elementAt(i).arrivalTime;  //maximum arrival time
+			}
+		}}
+		
+		//Collecting all process with shortest arrival time
+		float ShortBurst=9999;if(lck==-9){minArr=secMinArr;}
+		for(int i=0;i<s.size();i++){
+			if(s.elementAt(i).arrivalTime<=minArr){
+				s1.push(s.elementAt(i));
+			}
 		}
-	s1.peek().compTime=s.peek().arrivalTime;
+		
+		//Collecting process with shortest burst time from s1
+		int loc=-9;
+		for(int i=0;i<s1.size();i++){
+			if(s1.elementAt(i).burstTime<ShortBurst){
+				ShortBurst=s1.elementAt(i).burstTime;loc=i;
+			}
+		}
+		s1.clear();                //clearing processing stack 
+		
+		if(lock==0){
+		//finding second minArr
+		secMinArr=99999;
+		for(int i=0;i<s.size();i++){
+			if(s.elementAt(i).arrivalTime>minArr && s.elementAt(i).arrivalTime<secMinArr){
+				secMinArr=s.elementAt(i).arrivalTime;
+			}
+		}}lck=-9;                       //lock for 2nd secSuc running
+		if(secMinArr==maxArr){
+			lock=-9;              //lock for breaking the while loop after all process arrival
+		}
+		
+		//updating count to current passed processing time for further assigning 
+		count+=(secMinArr-minArr);
+		
+		//checking for the particular selected process completion
+		
+		if(s.elementAt(loc).burstTime-(secMinArr-minArr)>0){
+			s.elementAt(loc).burstTime-=(secMinArr-minArr)  ;
+			s.elementAt(loc).compTime=count;
+		}
+		else if(s.elementAt(loc).burstTime-(secMinArr-minArr)<=0){
+			if(s.elementAt(loc).burstTime-(secMinArr-minArr)==0){
+				s.elementAt(loc).compTime = count+(secMinArr-minArr);
+				s.elementAt(loc).status=true;
+				s2.push(s.elementAt(loc));    //completed Processes got collected in s2
+				s.removeElementAt(loc);
+			}
+			else{
+			s.elementAt(loc).compTime = count+s.elementAt(loc).burstTime;
+			s.elementAt(loc).status=true;
+			s2.push(s.elementAt(loc));    //completed Processes got collected in s2
+			s.removeElementAt(loc);
+			}
+			}
+		}
 	
 	
-}
-
-
-
-
+	//now s2 contains all those processes which are completed
+	//sorting remaining process with their burst time and applying SJF 
+	    Collections.sort(s,new comp1());
+		while(!s.isEmpty()){
+			s.elementAt(0).compTime=count+s.elementAt(0).burstTime;
+			count+=s.elementAt(0).burstTime;
+			s2.push(s.elementAt(0));s.removeElementAt(0);
+		}
+		
+		
+		//Now s2 is ready with all process in order of their completion
+		
+		//Restoring the original burst time from copy stack to s2 stack
+		for(int i=0;i<s2.size();i++){
+			s2.elementAt(i).burstTime=Copy.get(s2.elementAt(i).process_name);
+		}
+		
+		//Getting Result
+		result(new ArrayList<Process>(s2),n,true);
+		
+		}
 
 
 
 /*******************************  DEADLOCK DETECTION  **********************************************/	
 
 public static void deadLock(){
+	System.out.println("********************************** Deadlock Detection *********************************\n");
+	System.out.println("Enter number of Processes ");
+	int n=in.nextInt();
+	System.out.println("Enter number of resources");
+	int r=in.nextInt();
+	int AllocationTable[][]=new int[n][r];
+	//Allocation Table
+	System.out.println("Enter Allocation Table for each Process");
+	for(int i=0;i<n;i++){
+		for(int j=0;j<r;j++){
+			AllocationTable[i][j]=in.nextInt();
+		}
+	}
+	//Request/Max Table Entry
+    int Request[][]=new int[n][r];
+    System.out.println("Enter Max/Request Table for each Process");
+	for(int i=0;i<n;i++){
+		for(int j=0;j<r;j++){
+			Request[i][j]=in.nextInt();
+		}
+	}
+	
+	//Input Available or Total Resource Instance
+	
+	System.out.println("Select from below Option :");
+	System.out.println("1.Available");
+	System.out.println("2.Total Resource");
+	int option=in.nextInt();
+	int Available[]=new int [r];
+	int Total[]=new int [r];
+	if(option==1){
+		System.out.println("Enter Available Resource Instance : ");
+		for(int i=0;i<r;i++){
+			Available[i]=in.nextInt();
+		}
+	}
+	else if(option==2){
+		System.out.println("Enter Total Resource Instance : ");
+		for(int i=0;i<r;i++){
+			Total[i]=in.nextInt();
+		}		
+	}
+	else System.out.println("Invalid Option ");
+
+	/***************  Input Need Table              */
+	int Need[][]=new int[n][r];
+	for(int i=0;i<n;i++){
+		for(int j=0;j<r;j++){
+			Need[i][j]=Request[i][j]-AllocationTable[i][j];
+		}
+	}
+	
+	/***************  Calculating Need Table              */
+	
+	System.out.print("Calculating Need ,Please wait");Timer(100,true,".");
+	System.out.println("\n");
+	for(int i=0;i<n;i++){
+		System.out.print("P"+(i)+"  ");
+		for(int j=0;j<r;j++){
+			System.out.print(Need[i][j]+" ");Timer(15,false,"");
+		}System.out.println();
+	}
+	
+	/***************  Calculating Total/Available Resource Instance      */
+	
+	if(option==1){System.out.println("Total Resource Instance : ");
+	for(int i=0;i<r;i++){
+		int sum=0;
+		sum+=Available[i];
+		for(int j=0;j<n;j++){sum+=AllocationTable[j][i];}
+		System.out.print(sum+" ");
+	}
+	System.out.println("\n");
+	}
+	else{System.out.println("Available Resource Instance : ");
+		for(int i=0;i<r;i++){
+			int sum=0;
+			for(int j=0;j<n;j++){
+				sum+=AllocationTable[j][i];
+			}
+			System.out.print((Total[i]-sum)+" ");
+		}System.out.println("\n");
+	}
+	
+	/***************  Running Deadlock Detection      */
+	
+	System.out.print("\n\nRunning Deadlock Detection ");Timer(50,true,".");System.out.println("\n");
+	Stack <Integer>s=new Stack<>();             //Operational Container
+	Stack <String>s1=new Stack<>();             //Safe Sequence Collector
+	boolean status[]=new boolean[n];            //Status flag
+	for(int i=0;i<n;i++){s.push(i);}
+	int counter=0,ke=0;
+	while(!s.isEmpty()){
+		++counter;
+		for(int i=0;i<n;i++){
+			int key=0;
+			for(int j=0;j<r;j++){
+				if(status[i]==true || Need[i][j]>Available[j]){key=-9;break;}
+			}
+			if(key==-9){continue;}
+			else{
+			for(int j=0;j<r;j++){Need[i][j]=0;
+				Available[j]+=AllocationTable[i][j];
+			}
+			status[i]=true;                //Assigning status update
+			if(s.isEmpty()){break;}
+			s1.push("P"+i);
+			s.pop();}
+			}
+		
+		if(counter>(n*r)){System.out.print(" *** WARNING ***  Deadlock Detected,Exiting");
+		Timer(60,true,"X");System.out.println("\n");ke=-9;
+		break;}
+	}
+	/*        Result      */
+	
+	if(ke==0){System.out.println("Safe State Found\n");
+	System.out.print("Safe Sequence is : ");
+	for(int i=0;i<s1.size();i++){
+		System.out.print(s1.elementAt(i)+" ");Timer(50,false,"");
+	}
+	System.out.println("\n");
+	}
 	
 }
-
-
-
-
 
 
 /*************************************** Select Option ******************************************/	
@@ -442,28 +617,15 @@ public static void selectOption(){
 }
 
 
-
-
-
-
 /*****************************************About *************************************************/	
 public static void about(){
 	System.out.print("\nName    : Mayank Kumar Jha");
 	System.out.print("\nSubject : OS (Operating System )\n");
 }
 
-
-
-
-
-
 	
 /***************************************************************************************************/
 /***************************************************************************************************/
-
-
-
-
 
 
 public static void main(String ar[]){
