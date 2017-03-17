@@ -1,5 +1,5 @@
 
-/*@author mayank_kumar_jha*/
+/*@author mayank_kumar_jha */
 import java.util.*;
 
 class Process{
@@ -217,9 +217,8 @@ public static void sjf(){
 				}
 				s1.push(s.elementAt(loc));s.removeElementAt(loc);
 			}
-		
 		//setting remaining process other than first
-		float minArrivalTime=s1.peek().arrivalTime+s.peek().burstTime,minn=99999;int loc=-9;
+		float minArrivalTime=s1.peek().arrivalTime+s1.peek().burstTime,minn=99999;int loc=-9;
 		
 		while(!s.isEmpty()){
 			
@@ -469,7 +468,7 @@ public static void srtf(){
 		
 		//updating count to current passed processing time for further assigning 
 		count+=(secMinArr-minArr);
-		System.out.println(count+" "+secMinArr+" "+minArr);
+		
 		//checking for the particular selected process completion
 		
 		if(s.elementAt(loc).burstTime-(secMinArr-minArr)>0){
