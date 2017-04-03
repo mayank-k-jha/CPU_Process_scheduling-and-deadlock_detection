@@ -283,7 +283,17 @@ public static void roundRobin(){
 	}
 	System.out.println("Enter Quantum value ");
 	int quantum=in.nextInt();
-	
+	int trial=3,lockkk=0;
+	while(quantum==0){--trial;
+			  if(trial==0){System.out.println("Trial exceeds , Exiting ");
+			    lockkk=-1;
+			    }
+	System.out.println("InValid Value,Please Enter again   Trials left "+trial);
+		
+		quantum=in.nextInt();
+		
+	}
+	if(lockkk==0){
 	Collections.sort(ProcessScheduler,new comp());  //sorting with arrival time
 	
 	//distribution of quantum among processes on the basis of their arrival time
@@ -347,7 +357,7 @@ public static void roundRobin(){
 	//calling result function by passing the updated and arranged process scheduler
     result(ProcessScheduler,n,true);
 
-}
+}}
 
 
 /*************************************  SRTF  *****************************************************/	
