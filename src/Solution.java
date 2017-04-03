@@ -286,7 +286,7 @@ public static void roundRobin(){
 	int trial=3,lockkk=0;
 	while(quantum==0){--trial;
 			  if(trial==0){System.out.println("Trial exceeds , Exiting ");
-			    lockkk=-1;
+			    lockkk=-1;break;
 			    }
 	System.out.println("InValid Value,Please Enter again   Trials left "+trial);
 		
